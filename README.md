@@ -40,28 +40,37 @@ The code uses a configuration file (lvis_mol_lens.conf) where all the parameters
 
 There are a couple of ways of running wrapper. The simplest one relies entirely on the parameters in the configuration file. In the ROOT command line do:
 
+```
 .x wrapper.C+
+```
 
 Wrapper also accepts arguments:
 
-    arg: Acts as a "toggle" switch for telling the program to accept the following arguments. Possible values are 0 or 1.
-    region: Tells the program which region of the simulation to change a parameter. Possible values are "mol" (molasses) or "lens" (laser lens).
-    par_type: Parameter type to change in specified region. Possible values are: waist, detun (detuning) and w0pos (waist position).
-    ite: Iteration number. This gets multiplied by step. It is useful if running in a loop.
-    step: The step to vary at each iteration.
+- arg: Acts as a "toggle" switch for telling the program to accept the following arguments. Possible values are 0 or 1.
+
+- region: Tells the program which region of the simulation to change a parameter. Possible values are "mol" (molasses) or "lens" (laser lens).
+
+- par_type: Parameter type to change in specified region. Possible values are: waist, detun (detuning) and w0pos (waist position).
+
+- ite: Iteration number. This gets multiplied by step. It is useful if running in a loop.
+
+- step: The step to vary at each iteration.
 
 Using these arguments, one can run wrapper externally, for example, from a BASH script. This a sample script I used to run the code in batch mode (no plots) for several iterations of the detuning parameter in the molasses region:
 
-#!/bin/sh
+```#!/bin/sh
 for i in `seq 0 4`;
 do
 root.exe -b -q -l 'wrapper.C+('1',"'mol'","'detun'",'$i','0.1')'
 wait
 done
+```
 
 COMPILING:
 This part is easy. All one has to do in a ROOT command line is:
 
+```
 .L wrapper.C+
+```
 
 It is important to keep the files read_inputs.cxx and read_inputs.h in the same folder as the rest. If changes are made to the script, it is important to check that the appropriate header files are being included in lvis_mol_lens.C.
